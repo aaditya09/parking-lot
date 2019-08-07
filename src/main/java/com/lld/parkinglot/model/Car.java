@@ -2,6 +2,7 @@ package com.lld.parkinglot.model;
 
 
 import com.lld.parkinglot.enums.Type;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
