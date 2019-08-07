@@ -6,10 +6,7 @@ import com.lld.parkinglot.model.Space;
 import com.lld.parkinglot.repository.LevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Aaditya.t on 7/8/19.
