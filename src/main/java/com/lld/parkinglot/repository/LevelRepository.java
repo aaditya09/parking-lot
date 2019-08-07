@@ -3,6 +3,7 @@ package com.lld.parkinglot.repository;
 import com.lld.parkinglot.enums.LevelNo;
 import com.lld.parkinglot.enums.Status;
 import com.lld.parkinglot.model.Space;
+import com.lld.parkinglot.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,5 +35,13 @@ public class LevelRepository {
     public List<Space> getByStatusAndLevel(LevelNo level, Status status) {
         return spaceRepository.getByStatusAndLevel(level, status);
 
+    }
+
+    public boolean park(Vehicle vehicle, Space space , LevelNo level) {
+        return spaceRepository.update(vehicle, space, level);
+    }
+
+    public Vehicle find(Vehicle vehicle, LevelNo level) {
+        return spaceRepository.get(vehicle, level);
     }
 }

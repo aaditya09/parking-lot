@@ -2,6 +2,7 @@ package com.lld.parkinglot;
 
 import com.lld.parkinglot.enums.LevelNo;
 import com.lld.parkinglot.enums.Type;
+import com.lld.parkinglot.model.Bike;
 import com.lld.parkinglot.model.Car;
 import com.lld.parkinglot.model.Level;
 import com.lld.parkinglot.model.Vehicle;
@@ -26,19 +27,48 @@ public class DriverTest {
     @Test
     public void testParkingLot() {
         parkingService.initializeLevel(10, LevelNo.BASEMENT);
-
         parkingService.initializeLevel(7, LevelNo.GROUND);
-
         parkingService.initializeLevel(6, LevelNo.ONE);
 
-        // Car car = (Car) Car.builder()
-         //       .number("KA 10 ABDC")
-          //      .type(Type.FOUR_WHEELER)
-           //     .build();
+        Car car = new Car("CG 10 ABCD", Type.FOUR_WHEELER);
+        Bike bike = new Bike("CG 12 SASA", Type.TWO_WHEELER);
 
+        /*Car car = (Car) Car.builder()
+                .number("AP 10 SDSD")
+                .type(Type.FOUR_WHEELER)
+                .build();
 
-        log.info(parkingService.getAllSpace(LevelNo.BASEMENT).toString());
-        log.info(parkingService.getFreeSpace(LevelNo.BASEMENT).toString());
+        Bike bike = (Bike) Bike.builder()
+                .number("CG 10 SDSD")
+                .type(Type.TWO_WHEELER)
+                .build();
+*/
         log.info(parkingService.getAllocatedSpace(LevelNo.BASEMENT).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.BASEMENT).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.BASEMENT).size() + "");
+
+        log.info(parkingService.getAllocatedSpace(LevelNo.GROUND).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.GROUND).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.GROUND).size() + "");
+
+        log.info("==========================================================");
+
+        parkingService.park(car, LevelNo.BASEMENT);
+        parkingService.park(bike, LevelNo.GROUND);
+
+        log.info("========================PARKING==========================");
+        log.info("==========================================================");
+        log.info(parkingService.getAllocatedSpace(LevelNo.BASEMENT).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.BASEMENT).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.BASEMENT).size() + "");
+
+        log.info(parkingService.getAllocatedSpace(LevelNo.GROUND).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.GROUND).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.GROUND).size() + "");
+        log.info("==========================================================");
+
+        log.info(parkingService.getVehcleInfo(bike, LevelNo.GROUND).toString() );
+        log.info(parkingService.getVehcleInfo(car, LevelNo.BASEMENT).toString());
+        parkingService.exit(car);
     }
 }

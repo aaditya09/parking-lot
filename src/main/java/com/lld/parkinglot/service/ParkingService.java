@@ -4,10 +4,8 @@ package com.lld.parkinglot.service;
 import com.lld.parkinglot.enums.LevelNo;
 import com.lld.parkinglot.enums.Status;
 import com.lld.parkinglot.exception.FailedToInitializeLevelException;
-import com.lld.parkinglot.model.Car;
-import com.lld.parkinglot.model.Level;
-import com.lld.parkinglot.model.Space;
-import com.lld.parkinglot.model.Vehicle;
+import com.lld.parkinglot.exception.FreeSpaceNotFoundException;
+import com.lld.parkinglot.model.*;
 import com.lld.parkinglot.repository.ParkingRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +49,24 @@ public class ParkingService {
 
     public List<Space> getAllocatedSpace(LevelNo level){
         return levelService.find(level, Status. ALLOCATED);
+    }
+
+
+    public boolean park(Vehicle vehicle , LevelNo level){
+        List<Space> freeSpace = levelService.find(level, Status.FREE);
+
+        if(freeSpace.isEmpty()){
+            throw new FreeSpaceNotFoundException("Free Space not found on : " + level.name() + " parking failed for : " + vehicle.getNumber());
+        }
+
+        return levelService.park(vehicle, freeSpace.get(0), level);
+    }
+
+    public boolean exit(Vehicle vehicle){
+        return false;
+    }
+
+    public Vehicle getVehcleInfo(Vehicle vehicle, LevelNo level) {
+        return levelService.find(vehicle, level);
     }
 }
