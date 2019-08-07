@@ -37,7 +37,7 @@ public class SpaceRepository {
                 spaces.add(
                         Space.builder()
                                 .level(level)
-                                .id((char) initialSpaceId.getAndIncrement() + "-" + num)
+                                .id(level.name().charAt(0) + "-" + (char) initialSpaceId.getAndIncrement() + "-" + num)
                                 .status(Status.FREE).build()
                 );
             });
@@ -61,22 +61,20 @@ public class SpaceRepository {
     boolean update(Vehicle vehicle, Space space, LevelNo level) {
         List<Space> levelSpaces =  spaceMap.get(level);
 
-        levelSpaces.stream().filter( lspace -> lspace.getId().equalsIgnoreCase(space.getId())).findAny().ifPresent( matchSpace -> {
-            matchSpace.setStatus(Status.ALLOCATED);
-            matchSpace.setEntryTime(LocalDateTime.now());
-            matchSpace.setVechile(vehicle);
-        });
+        levelSpaces.stream().filter( lspace -> lspace.getId().equalsIgnoreCase(space.getId()))
+                .findAny()
+                .ifPresent(
+                        matchSpace -> {
+                            matchSpace.setStatus(Status.ALLOCATED);
+                            matchSpace.setAllocationTime(LocalDateTime.now());
+                            matchSpace.setVechile(vehicle);
+                            matchSpace.getVechile().setSpace(matchSpace);
+                        });
 
         return true;
     }
 
-    Vehicle get(Vehicle vehicle, LevelNo level) {
-        List<Space> spaces = getByStatusAndLevel(level, Status.ALLOCATED);
-        Space vehicleSpace = spaces.stream()
-                .filter(space -> space.getVechile().equals(vehicle))
-                .findAny()
-                .orElseThrow(() -> new VehicleNotFoundException("No vehicle foound for " + vehicle.getNumber() + " on " + level.name()));
-
-        return vehicleSpace.getVechile();
+    Space get(Vehicle vehicle) {
+        return vehicle.getSpace();
     }
 }

@@ -4,11 +4,7 @@ import com.lld.parkinglot.enums.LevelNo;
 import com.lld.parkinglot.enums.Type;
 import com.lld.parkinglot.model.Bike;
 import com.lld.parkinglot.model.Car;
-import com.lld.parkinglot.model.Level;
-import com.lld.parkinglot.model.Vehicle;
-import com.lld.parkinglot.repository.ParkingRepository;
 import com.lld.parkinglot.service.ParkingService;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,8 +63,8 @@ public class DriverTest {
         log.info(parkingService.getFreeSpace(LevelNo.GROUND).size() + "");
         log.info("==========================================================");
 
-        log.info(parkingService.getVehcleInfo(bike, LevelNo.GROUND).toString() );
-        log.info(parkingService.getVehcleInfo(car, LevelNo.BASEMENT).toString());
+        log.info(parkingService.getVehicleParkingInfo(bike).toString() );
+        log.info(parkingService.getVehicleParkingInfo(car).toString());
         parkingService.exit(car);
     }
 }

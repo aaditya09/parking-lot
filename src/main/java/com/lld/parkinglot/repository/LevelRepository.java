@@ -41,7 +41,7 @@ public class LevelRepository {
         return spaceRepository.update(vehicle, space, level);
     }
 
-    public Vehicle find(Vehicle vehicle, LevelNo level) {
-        return spaceRepository.get(vehicle, level);
+    public Space find(Vehicle vehicle) {
+        return spaceRepository.get(vehicle);
     }
 }

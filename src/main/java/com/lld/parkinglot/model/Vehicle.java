@@ -11,7 +11,7 @@ import lombok.Data;
 public class Vehicle {
     private String number;
     private Type type;
-
+    private Space space;
 
     public Vehicle(){
 
@@ -22,6 +22,11 @@ public class Vehicle {
         this.type = type;
     }
 
+    public Vehicle(String number, Type type, Space space) {
+        this.number = number;
+        this.type = type;
+        this.space = space;
+    }
 
     @Override
     public String toString(){

@@ -13,7 +13,6 @@ public class Space {
     private String id;
     private Status status;
     private Vehicle vechile;
-    private LocalDateTime entryTime;
-    private LocalDateTime exitTime;
+    private LocalDateTime allocationTime;
     private LevelNo level;
 }

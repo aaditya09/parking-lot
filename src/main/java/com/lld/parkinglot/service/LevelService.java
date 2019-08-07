@@ -41,7 +41,7 @@ public class LevelService {
         return levelRepository.park(vehicle, space, level);
     }
 
-    Vehicle find(Vehicle vehicle, LevelNo level) {
-        return levelRepository.find(vehicle, level);
+    Space find(Vehicle vehicle) {
+        return levelRepository.find(vehicle);
     }
 }

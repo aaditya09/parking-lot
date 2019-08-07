@@ -66,7 +66,7 @@ public class ParkingService {
         return false;
     }
 
-    public Vehicle getVehcleInfo(Vehicle vehicle, LevelNo level) {
-        return levelService.find(vehicle, level);
+    public Space getVehicleParkingInfo(Vehicle vehicle) {
+        return levelService.find(vehicle);
     }
 }
