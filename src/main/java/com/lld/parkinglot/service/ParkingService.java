@@ -51,9 +51,11 @@ public class ParkingService {
                 );
             });
 
+            Space[] arr = new Space[spaces.size()];
+
             Level level = Level.builder()
                     .id(levelNo)
-                    .slots((Space[]) spaces.toArray())
+                    .slots(spaces.toArray(arr))
                     .isFull(false)
                     .build();
 
