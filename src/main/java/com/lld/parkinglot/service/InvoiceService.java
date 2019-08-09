@@ -6,6 +6,7 @@ import com.lld.parkinglot.enums.Type;
 import com.lld.parkinglot.model.Invoice;
 import com.lld.parkinglot.model.Vehicle;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -19,7 +20,13 @@ import java.time.temporal.TemporalUnit;
 public class InvoiceService {
     private static final Integer TWO_WHEELER_PRICING = 10;
     private static final Integer FOUR_WHEELER_PRICING = 10;
-    // Per sec pricing just to show for test
+
+    private PaymentService paymentService;
+
+    @Autowired
+    public InvoiceService(PaymentService paymentService){
+        this.paymentService = paymentService;
+    }
 
     Invoice getInvoice(Vehicle vehicle) {
         Long parkingTimeInSec = getParkingTime(vehicle);
@@ -43,4 +50,7 @@ public class InvoiceService {
     }
 
 
+     boolean payInvoice(Invoice invoice) {
+        return paymentService.pay(invoice);
+    }
 }

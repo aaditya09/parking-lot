@@ -76,14 +76,13 @@ public class ParkingService {
     public boolean payInvoice(Vehicle vehicle) {
         Invoice invoice = invoiceService.getInvoice(vehicle);
         log.info("Raised invoice : " + invoice.toString());
-        boolean paidSuccessfully = true;
-        if (paidSuccessfully){
-            invoice.setStatus(InvoiceStatus.PAID);
+        boolean successful = invoiceService.payInvoice(invoice);
+
+        if(successful ){
             vehicle.setIsCharagesPaid(true);
             log.info("Paid invoice : " + invoice.toString());
             return true;
-        } else {
-            throw new PaymentFaildExeption("Payment declined, Try again");
         }
+        return false;
     }
 }
