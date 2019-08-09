@@ -66,7 +66,7 @@ public class DriverTest {
         log.info(parkingService.getVehicleParkingInfo(bike).toString() );
         log.info(parkingService.getVehicleParkingInfo(car).toString());
 
-       // parkingService.exit(car);
+       // parkingService.exit(car);  // this would break as invoice not paid
 
         log.info("==========================================================");
         log.info(parkingService.getAllocatedSpace(LevelNo.BASEMENT).toString());
