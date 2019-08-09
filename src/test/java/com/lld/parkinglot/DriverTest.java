@@ -26,8 +26,8 @@ public class DriverTest {
         parkingService.initializeLevel(7, LevelNo.GROUND);
         parkingService.initializeLevel(6, LevelNo.ONE);
 
-        Car car = new Car("CG 10 ABCD", Type.FOUR_WHEELER);
-        Bike bike = new Bike("CG 12 SASA", Type.TWO_WHEELER);
+        Car car = new Car("AP 26 ST QEN", Type.FOUR_WHEELER);
+        Bike bike = new Bike("CG 10  AT KNG", Type.TWO_WHEELER);
 
         /*Car car = (Car) Car.builder()
                 .number("AP 10 SDSD")
@@ -65,6 +65,16 @@ public class DriverTest {
 
         log.info(parkingService.getVehicleParkingInfo(bike).toString() );
         log.info(parkingService.getVehicleParkingInfo(car).toString());
+
         parkingService.exit(car);
+
+        log.info("==========================================================");
+        log.info(parkingService.getAllocatedSpace(LevelNo.BASEMENT).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.BASEMENT).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.BASEMENT).size() + "");
+
+        log.info(parkingService.getAllocatedSpace(LevelNo.GROUND).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.GROUND).toString());
+        log.info(parkingService.getFreeSpace(LevelNo.GROUND).size() + "");
     }
 }

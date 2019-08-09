@@ -29,10 +29,6 @@ public class ParkingService {
         this.levelService = levelService;
     }
 
-    public boolean entery(Vehicle vehicle, Level level){
-        return false;
-    }
-
 
     public void initializeLevel(Integer maxCapacity, LevelNo levelNo){
         levelService.create(levelNo, maxCapacity);
@@ -63,7 +59,7 @@ public class ParkingService {
     }
 
     public boolean exit(Vehicle vehicle){
-        return false;
+        return levelService.exit(vehicle);
     }
 
     public Space getVehicleParkingInfo(Vehicle vehicle) {

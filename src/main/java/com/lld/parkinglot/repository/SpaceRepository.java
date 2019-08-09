@@ -59,9 +59,9 @@ public class SpaceRepository {
     }
 
     boolean update(Vehicle vehicle, Space space, LevelNo level) {
-        List<Space> levelSpaces =  spaceMap.get(level);
+        //List<Space> levelSpaces =  spaceMap.get(level);
 
-        levelSpaces.stream().filter( lspace -> lspace.getId().equalsIgnoreCase(space.getId()))
+        spaceMap.get(level).stream().filter( lspace -> lspace.getId().equalsIgnoreCase(space.getId()))
                 .findAny()
                 .ifPresent(
                         matchSpace -> {
@@ -76,5 +76,12 @@ public class SpaceRepository {
 
     Space get(Vehicle vehicle) {
         return vehicle.getSpace();
+    }
+
+    boolean update(Vehicle vehicle) {
+        vehicle.getSpace().setStatus(Status.FREE);
+        vehicle.getSpace().setVechile(null);
+        vehicle.getSpace().setAllocationTime(null);
+        return true;
     }
 }

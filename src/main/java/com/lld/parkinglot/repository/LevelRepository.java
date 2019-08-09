@@ -44,4 +44,8 @@ public class LevelRepository {
     public Space find(Vehicle vehicle) {
         return spaceRepository.get(vehicle);
     }
+
+    public boolean exit(Vehicle vehicle) {
+        return spaceRepository.update(vehicle);
+    }
 }
