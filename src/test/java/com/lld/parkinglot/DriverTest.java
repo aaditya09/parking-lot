@@ -66,7 +66,7 @@ public class DriverTest {
         log.info(parkingService.getVehicleParkingInfo(bike).toString() );
         log.info(parkingService.getVehicleParkingInfo(car).toString());
 
-        parkingService.exit(car);
+       // parkingService.exit(car);
 
         log.info("==========================================================");
         log.info(parkingService.getAllocatedSpace(LevelNo.BASEMENT).toString());
@@ -76,5 +76,8 @@ public class DriverTest {
         log.info(parkingService.getAllocatedSpace(LevelNo.GROUND).toString());
         log.info(parkingService.getFreeSpace(LevelNo.GROUND).toString());
         log.info(parkingService.getFreeSpace(LevelNo.GROUND).size() + "");
+
+        parkingService.payInvoice(car);
+        parkingService.exit(car);
     }
 }

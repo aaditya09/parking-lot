@@ -1,19 +1,23 @@
 package com.lld.parkinglot.service;
 
 
+import com.lld.parkinglot.enums.InvoiceStatus;
 import com.lld.parkinglot.enums.LevelNo;
 import com.lld.parkinglot.enums.Status;
 import com.lld.parkinglot.exception.FailedToInitializeLevelException;
 import com.lld.parkinglot.exception.FreeSpaceNotFoundException;
+import com.lld.parkinglot.exception.PaymentFaildExeption;
 import com.lld.parkinglot.model.*;
 import com.lld.parkinglot.repository.ParkingRepository;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.IntStream;
@@ -21,12 +25,15 @@ import java.util.stream.Stream;
 
 @Service
 @Data
+@Slf4j
 public class ParkingService {
     private LevelService levelService;
+    private InvoiceService invoiceService;
 
     @Autowired
-    public ParkingService(LevelService levelService){
+    public ParkingService(LevelService levelService, InvoiceService invoiceService){
         this.levelService = levelService;
+        this.invoiceService = invoiceService;
     }
 
 
@@ -64,5 +71,19 @@ public class ParkingService {
 
     public Space getVehicleParkingInfo(Vehicle vehicle) {
         return levelService.find(vehicle);
+    }
+
+    public boolean payInvoice(Vehicle vehicle) {
+        Invoice invoice = invoiceService.getInvoice(vehicle);
+        log.info("Raised invoice : " + invoice.toString());
+        boolean paidSuccessfully = true;
+        if (paidSuccessfully){
+            invoice.setStatus(InvoiceStatus.PAID);
+            vehicle.setIsCharagesPaid(true);
+            log.info("Paid invoice : " + invoice.toString());
+            return true;
+        } else {
+            throw new PaymentFaildExeption("Payment declined, Try again");
+        }
     }
 }
