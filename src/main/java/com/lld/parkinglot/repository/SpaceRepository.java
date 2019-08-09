@@ -2,6 +2,7 @@ package com.lld.parkinglot.repository;
 
 import com.lld.parkinglot.enums.LevelNo;
 import com.lld.parkinglot.enums.Status;
+import com.lld.parkinglot.exception.ChargesNotPaidException;
 import com.lld.parkinglot.exception.FailedToInitializeLevelException;
 import com.lld.parkinglot.exception.VehicleNotFoundException;
 import com.lld.parkinglot.model.Space;
@@ -69,6 +70,7 @@ public class SpaceRepository {
                             matchSpace.setAllocationTime(LocalDateTime.now());
                             matchSpace.setVechile(vehicle);
                             matchSpace.getVechile().setSpace(matchSpace);
+                            matchSpace.getVechile().setIsCharagesPaid(false);
                         });
 
         return true;
@@ -79,9 +81,14 @@ public class SpaceRepository {
     }
 
     boolean update(Vehicle vehicle) {
-        vehicle.getSpace().setStatus(Status.FREE);
-        vehicle.getSpace().setVechile(null);
-        vehicle.getSpace().setAllocationTime(null);
-        return true;
+
+        if(vehicle.getIsCharagesPaid()){
+            vehicle.getSpace().setStatus(Status.FREE);
+            vehicle.getSpace().setVechile(null);
+            vehicle.getSpace().setAllocationTime(null);
+            return true;
+        }
+
+        throw  new ChargesNotPaidException("Charges not paid for "+ vehicle.getSpace().getVechile().toString()+ ", please pay charges for exit");
     }
 }

@@ -12,6 +12,7 @@ public class Vehicle {
     private String number;
     private Type type;
     private Space space;
+    private Boolean isCharagesPaid;
 
     public Vehicle(){
 
@@ -26,6 +27,13 @@ public class Vehicle {
         this.number = number;
         this.type = type;
         this.space = space;
+    }
+
+    public Vehicle(String number, Type type, Space space, Boolean isCharagesPaid) {
+        this.number = number;
+        this.type = type;
+        this.space = space;
+        this.isCharagesPaid = isCharagesPaid;
     }
 
     @Override
